@@ -5,8 +5,8 @@ language_tabs:
   - http
   - shell
   - python
-  - ObjC
-  - Java
+  - objective_c
+  - java
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -26,11 +26,11 @@ For the time being, we have language bindings in HTTP and Shell (see right sideb
 
 # Authentication
 
-> To authorize, use this code:
+> To authorize, use this code:  
 
 ```http
 POST /api/v1/auth/ HTTP/1.1
-Host: campusbellhops.com
+Host: getbellhops.com
 Content-Type: application/json
 Authorization: Basic ...
 
@@ -50,7 +50,7 @@ Content-Type: Application/json
             "created": "2014-09-08T18:31:13.615Z"
         },
         {
-            "href": "http://campusbellhops.com/api/v1/bellhopprofiles/1/",
+            "href": "http://getbellhops.com/api/v1/bellhopprofiles/1/",
             "profile_type": "bellhop"
         },
         {
@@ -65,7 +65,41 @@ Content-Type: Application/json
 
 ```shell
 # Your username will be the same as your email address.
-curl  -X POST -u "your_username:your_password" campusbellhops.com/api/v1/auth/
+curl  -X POST -u "your_username:your_password" getbellhops.com/api/v1/auth/
+```
+
+```python
+# Your username will be the same as your email address.
+from django.core.urlresolvers import reverse
+from django.test import Client
+import base64
+user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+auth_headers = {'HTTP_AUTHORIZATION': 'Basic ' + base64.b64encode('test@user.com:password'),}
+token = user.auth_token
+c = Client()
+response = c.post(reverse('api-auth'), **auth_headers)
+# User's token will be at response.data['profiles'][0]['key']
+```
+
+```objective_c
+// NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
+// Your username will be the same as your email address.
+RKObjectManager.sharedManager().HTTPClient.setAuthorizationHeaderWithUsername(email, password:password)
+NetworkManager.sharedInstance.POST("api/v1/auth/",
+            parameters: nil,
+            success: { { operation, mappingResult in
+              ...
+            },
+            failure: { operation, error in
+              ...
+            }
+        )
+```
+
+
+
+```java
+// Coming soon!
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
