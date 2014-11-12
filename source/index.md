@@ -252,7 +252,8 @@ pk | None | The primary key of the bellhop you wish to GET
 ## Get All Bellhop Profiles
 
 ```http
-{
+HTTP/1.1 200 OK
+    {
    "count":3,
    "next":null,
    "previous":null,
