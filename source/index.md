@@ -717,6 +717,7 @@ You must be a superuser to GET from this endpoint.
 ## Get PhotoProfile Of Currently Authenticated User
 
 ```http
+HTTP/1.1 200 OK
 {
    "count":1,
    "next":null,
@@ -765,6 +766,7 @@ If the authenticated user is a superuser, this endpoint returns all PhotoProfile
 ## Get A Specific PhotoProfile
 
 ```http
+HTTP/1.1 200 OK
 {
    "count":1,
    "next":null,
@@ -821,19 +823,27 @@ pk | None | The primary key of the photo profile you wish to GET
 ## Get Interview Video
 
 ```http
-
+HTTP/1.1 200 OK
+{
+   "created_at":"2014-02-27T02:20:20.181Z",
+   "cameratag_uuid":"v-59f4dfd0-8183-0131-32ab-22000a499ea4",
+   "video_url":null,
+   "cameratag_status":null,
+   "bellhop":5598
+}
 ```
 
 ```shell
-curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/photoprofiles/17962
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/interviewvideo/
 ```
 
 ```python
     from django.core.urlresolvers import reverse
-    from django.test import Client
-    c = Client()
-    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
-    response = c.get(reverse('api-photoprofile-list'),{'pk':'17962'}, **auth_headers)
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-interviewvideo-list'))
 ```
 
 ```objective_c
