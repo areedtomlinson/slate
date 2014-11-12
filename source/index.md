@@ -118,6 +118,107 @@ You must replace `meowmeowmeow` with your personal API key.
 # Bellhop Profile Endpoints
 
 ## Get A Bellhop Profile
+```http
+HTTP/1.1 200 OK
+    {
+   "pk":19100,
+   "user":26579,
+   "school":2,
+   "hometown":"Chattanooga",
+   "grad_season":"SPG",
+   "grad_year":"15",
+   "major":"CompSci",
+   "is_phone_verified":false,
+   "student_orgs":"None",
+   "coupon":42104,
+   "address":null,
+   "created_at":"2014-10-08T15:10:57.405Z",
+   "modified_at":"2014-10-08T15:10:58.920Z",
+   "referrer":null,
+   "employment_status":"pending",
+   "agreed_to_labor_release":true,
+   "can_you_lift_75_lbs":true,
+   "rankable":true,
+   "craigslist_director":false,
+   "how_did_you_hear":"fake",
+   "notify_of_new_jobs_via_sms":null,
+   "job_board_requirements":[
+      {
+         "url":"",
+         "text":"Your account is inactive.",
+         "app_text":"Your account is inactive.",
+         "fulfilled":true,
+         "requirement_name":"account_active"
+      },
+      {
+         "url":"",
+         "text":"Unfortunately, we aren't operational in a market near your school.",
+         "app_text":"We aren't operating near you currently.",
+         "fulfilled":true,
+         "requirement_name":"market_operational"
+      },
+      {
+         "url":"/hophr/verify-phone/",
+         "text":"You have not verified your phone. Verify it <a href='/hophr/verify-phone/'>here</a>.",
+         "app_text":"You haven't verified your phone!",
+         "fulfilled":false,
+         "requirement_name":"phone_verified"
+      },
+      {
+         "url":"/training/onboarding/",
+         "text":"You've not watched all the training videos and answered all the questions correctly. Finish this <a href='/training/onboarding/'>here</a>.",
+         "app_text":"You've not finished the required lessons.",
+         "fulfilled":false,
+         "requirement_name":"training_complete"
+      },
+      {
+         "url":"/hophr/profile/edit/",
+         "text":"You've not answered ALL the personality questions and your profile is not complete. Complete it <a href='/hophr/profile/edit/'>here</a>.",
+         "app_text":"You've not finished the personality questions!",
+         "fulfilled":true,
+         "requirement_name":"profile_complete"
+      },
+      {
+         "url":"/dashboard/",
+         "text":"You have not been accepted. Once a decision is made, you will be notified via email.</br> Want to re-record your interview video? <a href='/dashboard/?record=true'>Click Here</a>",
+         "app_text":"Your application has not been accepted yet.",
+         "fulfilled":false,
+         "requirement_name":"is_hired"
+      },
+      {
+         "url":"/hophr/profile/edit/",
+         "text":"You haven't got a profile photo yet. Let us see your pretty face by uploading to your <a href='/hophr/profile/edit/'>profile</a>.",
+         "app_text":"We need a profile photo from you!",
+         "fulfilled":true,
+         "requirement_name":"photo_present"
+      },
+      {
+         "url":"/hophr/profile/edit/",
+         "text":"We need your address on file for end of year accounting and tax purposes.<br/>Please click the following link to fill in your address <a href='/hophr/profile/edit/'>here</a>",
+         "app_text":"We need your address!",
+         "fulfilled":false,
+         "requirement_name":"address_present"
+      },
+      {
+         "url":"/hophr/profile/edit/",
+         "text":"We need you to set your communications preferences regarding receiving SMSs from Bellhops. You can do it by <a href='/hophr/profile/edit/'> editing your profile here</a>",
+         "app_text":"Please set your communication preferences.",
+         "fulfilled":false,
+         "requirement_name":"communication_preferences_set"
+      },
+      {
+         "url":"",
+         "text":"In order to be approved you'll need to submit a video interview.",
+         "app_text":"In order to be approved you'll need to submit a video interview.",
+         "fulfilled":false,
+         "requirement_name":"interview_video_recorded"
+      }
+   ],
+   "can_claim_jobs":false,
+   "phone":"4232229999",
+   "pretty_phone":"(423) 222-9999"
+}
+```
 
 ```shell
 curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/bellhopprofiles/19100/
@@ -149,6 +250,18 @@ Parameter | Default | Description
 pk | None | The primary key of the bellhop you wish to GET
 
 ## Get All Bellhop Profiles
+
+```http
+{
+   "count":3,
+   "next":null,
+   "previous":null,
+   "results":[
+      {  },
+      {  },
+      {  }
+   ]
+}
 
 ```shell
 curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/bellhopprofiles/
