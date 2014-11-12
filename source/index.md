@@ -420,6 +420,49 @@ This endpoint retrieves all bellhop profiles.
 ### HTTP Request
 `GET http://staging.getbellhops.com/api/v1/bellhopprofiles/`
 
+## Get All Bellhop Profiles Currently Being Reviewed
+
+```http
+HTTP/1.1 200 OK
+    {
+   "count":3,
+   "next":null,
+   "previous":null,
+   "results":[
+      {  },
+      {  },
+      {  }
+   ]
+}
+```
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/applications/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from django.test import Client
+    c = Client()
+    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
+    response = c.get(reverse('api-applications-list'), **auth_headers)
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+This endpoint retrieves all bellhop profiles that are awaiting approval.
+<aside class="notice">
+You must be a superuser to GET from this endpoint.
+</aside>
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/applications/`
 
 # Kittens
 
