@@ -748,6 +748,42 @@ Parameter | Default | Description
 --------- | ------- | -----------
 pk | None | The primary key of the photo profile you wish to GET
 
+
+
+# Onboarding
+## Get Interview Video
+
+```http
+
+```
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/photoprofiles/17962
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from django.test import Client
+    c = Client()
+    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
+    response = c.get(reverse('api-photoprofile-list'),{'pk':'17962'}, **auth_headers)
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+When Bellhops sign up, they make an interview video.
+This endpoint gets the interview video the requesting user has submitted.
+If no interview video has been recorded, this returns 400.
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/interviewvideo`
+
 # Kittens
 
 ## Get All Kittens
