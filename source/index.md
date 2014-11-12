@@ -714,6 +714,107 @@ You must be a superuser to GET from this endpoint.
 ### HTTP Request
 `GET http://staging.getbellhops.com/api/v1/applications/`
 
+## Get PhotoProfile Of Currently Authenticated User
+
+```http
+{
+   "count":1,
+   "next":null,
+   "previous":null,
+   "results":[
+      {
+         "href":"http://staging.getbellhops.com/api/v1/photoprofiles/",
+         "profile_type":"photo",
+         "image":"https://bellhops-staging.s3.amazonaws.com/hophr/img/barnabas-square.png"
+      }
+   ]
+}
+
+```
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/photoprofiles/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from django.test import Client
+    c = Client()
+    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
+    response = c.get(reverse('api-photoprofile-list'), **auth_headers)
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+PhotoProfiles are how we keep track of a User's photo (Bellhop or Customer).
+This Endpoint serves up the current user's photo profile.
+
+<aside class="notice">
+If the authenticated user is a superuser, this endpoint returns all PhotoProfiles.
+</aside>
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/photoprofiles/`
+
+## Get A Specific PhotoProfile
+
+```http
+{
+   "count":1,
+   "next":null,
+   "previous":null,
+   "results":[
+      {
+         "href":"http://staging.getbellhops.com/api/v1/photoprofiles/17962/",
+         "profile_type":"photo",
+         "image":"https://bellhops-staging.s3.amazonaws.com/hophr/img/barnabas-square.png"
+      }
+   ]
+}
+
+```
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/photoprofiles/17962
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from django.test import Client
+    c = Client()
+    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
+    response = c.get(reverse('api-photoprofile-list'),{'pk':'17962'}, **auth_headers)
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+PhotoProfiles are how we keep track of a User's photo (Bellhop or Customer).
+This Endpoint serves up the photo profile that matches the pk that was passed in.
+
+<aside class="notice">
+If the user requests a photoprofile that is not his own and the user is not a superuser,
+this will return a 403.
+</aside>
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/photoprofiles/<pk>`
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pk | None | The primary key of the photo profile you wish to GET
+
 # Kittens
 
 ## Get All Kittens
