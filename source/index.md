@@ -150,11 +150,11 @@ response = c.post(reverse('api-reset-password', args=['your.email@fake.com']))
 
 ```objective_c
 // NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
- NetworkManager.sharedInstance.resetPassword(emailTextField.text,
-                success: { operation, responseObject -> () in
+ NetworkManager.sharedInstance.resetPassword(emailAddress, 
+                success: { operation, responseObject in
                     ...
                 },
-                failure: { operation, error -> () in
+                failure: { operation, error in
                     ...
                 }
             )
@@ -172,9 +172,7 @@ reveal which email addresses are in use.
 Downstream effect: If there is a user with this email address, they will receive an email with a password reset link.
 
 
-# Admin
-
-Most of the endpoints here can be used by non-superusers in a limited capacity, but are really only helpful for admins.
+# Users
 
 ## Get All Users
 
@@ -278,8 +276,14 @@ response = c.get(reverse('api-user-detail', args=[<pk>]))
 
 ```objective_c
 // NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
-
-// Coming soon!
+NetworkManager.sharedInstance.getUserInfo(userID, 
+                success: { operation, responseObject in
+                    ...
+                },
+                failure: { operation, error in
+                    ...
+                }
+            )
 ```
 
 
@@ -292,6 +296,66 @@ response = c.get(reverse('api-user-detail', args=[<pk>]))
 If you're a superuser, this endpoint returns the specified user.
 If you're a non-superuser and this is your user id, you'll get your user record. If this isn't your user id, you'll get a 403.
 
+## Post a User
+
+```http
+POST /api/v1/users/ HTTP/1.1
+Host: getbellhops.com
+Content-Type: application/json
+``` 
+
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+```
+
+```shell
+curl -X POST -d "first_name=FirstName&last_name=LastName&email=test@email.com&password=password" https://getbellhops.com/api/v1/users/
+```
+
+```python
+from django.core.urlresolvers import reverse
+from rest_framework.test import APIClient
+c = APIClient()
+response = c.post(reverse('api-user-list'), {
+      'first_name':'FirstName',
+      'last_name':'LastName',
+      'email':'test@email.com',
+      'password':'password'
+    }
+  )
+```
+
+
+```objective_c
+// NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
+User.postUser(
+                email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                success:{ operation, mappingResult in
+                    ...
+                },
+                failure: { operation, error in
+                   ...
+                }
+            )
+// Coming soon!
+```
+
+
+
+```java
+// Coming soon!
+```
+
+
+This endpoint always returns a 200, empty response, no matter what.
+
+
+# Customers
 
 ## Get All Customers
 
@@ -539,10 +603,11 @@ curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/b
 
 ```python
     from django.core.urlresolvers import reverse
-    from django.test import Client
-    c = Client()
-    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
-    response = c.get(reverse('api-bellhopprofile-list'), {'pk':'19100',}, **auth_headers)
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-bellhopprofile-detail', args=[<pk>]))
 ```
 
 ```objective_c
@@ -584,10 +649,11 @@ curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/b
 
 ```python
     from django.core.urlresolvers import reverse
-    from django.test import Client
-    c = Client()
-    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
-    response = c.get(reverse('api-bellhopprofile-list'), **auth_headers)
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-bellhopprofile-list'))
 ```
 
 ```objective_c
@@ -625,10 +691,11 @@ curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/a
 
 ```python
     from django.core.urlresolvers import reverse
-    from django.test import Client
-    c = Client()
-    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
-    response = c.get(reverse('api-applications-list'), **auth_headers)
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-applications-list'))
 ```
 
 ```objective_c
