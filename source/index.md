@@ -125,7 +125,6 @@ On the bellhops production server, hitting any endpoint on HTTP will give you a 
 POST /api/v1/auth/reset-password/your.email@fake.com/ HTTP/1.1
 Host: getbellhops.com
 Content-Type: application/json
-Authorization: Basic ...
 ``` 
 
 ```http
@@ -183,7 +182,7 @@ Most of the endpoints here can be used by non-superusers in a limited capacity, 
 GET /api/v1/users/ HTTP/1.1
 Host: getbellhops.com
 Content-Type: application/json
-Authorization: Basic ...
+Authorization: Token ...
 ``` 
 
 ```http
@@ -204,7 +203,8 @@ Content-Type: application/json
          "last_name":"McDragbottom",
          "profiles":[ ... see /auth/ for an example of profiles ... ]
          ]
-      }
+      },
+      ...
     ]
 }
 ```
@@ -235,14 +235,197 @@ response = c.get(reverse('api-user-list'))
 // Coming soon!
 ```
 
-If you're a non-superuser, this endpoint will only return your user account (with a limited subset of fields).
-If you're a superuser, this endpoint returns all users, and all fields.
+If you're a non-superuser, this endpoint will only return your user account.
+If you're a superuser, this endpoint returns all users.
 
 
 ## Get One User
-If you're a superuser, this endpoint returns the specified user, with all data fields.
-If you're a non-superuser and this is your user id, you'll get your user record with a limited subset of fields. If this isn't your user id, you'll get a 403.
 
+```http
+GET /api/v1/users/<pk>/ HTTP/1.1
+Host: getbellhops.com
+Content-Type: application/json
+Authorization: Token ...
+``` 
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+   "pk":<pk>,
+   "email":"fern@buckle.com",
+   "is_superuser":false,
+   "first_name":"Fernbuckle",
+   "last_name":"McDragbottom",
+   "profiles":[ ... see /auth/ for an example of profiles ... ]
+   ]
+}
+```
+
+```shell
+curl -X GET -H "Authorization: Token your-token-here" https://getbellhops.com/api/v1/users/<pk>/
+```
+
+```python
+from django.core.urlresolvers import reverse
+from rest_framework.test import APIClient
+user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+c = APIClient()
+c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+response = c.get(reverse('api-user-detail', args=[<pk>]))
+```
+
+
+```objective_c
+// NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
+
+// Coming soon!
+```
+
+
+
+```java
+// Coming soon!
+```
+
+
+If you're a superuser, this endpoint returns the specified user.
+If you're a non-superuser and this is your user id, you'll get your user record. If this isn't your user id, you'll get a 403.
+
+
+## Get All Customers
+
+```http
+GET /api/v1/customers/ HTTP/1.1
+Host: getbellhops.com
+Content-Type: application/json
+Authorization: Token ...
+``` 
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+   "count":12923,
+   "next":"https://getbellhops.com/api/v1/customers/?page=2",
+   "previous":null,
+   "results":[
+      {
+         "url":"https://getbellhops.com/api/v1/customers/2/",
+         "id":2,
+         "first_name":"Fernbuckle",
+         "last_name":"McDragbottom",
+         "email":"fern@buckle.edu",
+         "phone":"123-546-7890",
+         "orders":{
+            "count":1,
+            "next":null,
+            "previous":null,
+            "results":[
+               {
+                  ...see /order/ for an example...
+               }
+            ]
+         }
+      },
+      ...
+   ]
+}
+```
+
+```shell
+curl -X GET -H "Authorization: Token your-token-here" https://getbellhops.com/api/v1/customers/
+```
+
+```python
+from django.core.urlresolvers import reverse
+from rest_framework.test import APIClient
+user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+c = APIClient()
+c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+response = c.get(reverse('api-customer-list'))
+```
+
+
+```objective_c
+// NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
+
+// Coming soon!
+```
+
+
+
+```java
+// Coming soon!
+```
+
+No matter who you are, this endpoint returns all customers.
+
+<aside class="warning">
+For a non super-user, we should only return a subset of Customers. <a href="https://www.pivotaltracker.com/story/show/82597272">See this pivotal story.</a>
+</aside>
+
+<aside class="warning">
+Customer serialization needs to be re-worked. <a href="https://www.pivotaltracker.com/story/show/82598804">See this pivotal story.</a>
+</aside>
+
+
+## Get One Customer
+
+```http
+GET /api/v1/customers/<pk>/ HTTP/1.1
+Host: getbellhops.com
+Content-Type: application/json
+Authorization: Basic ...
+``` 
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+  "url":"https://getbellhops.com/api/v1/customers/2/",
+  "id":2,
+  "first_name":"Fernbuckle",
+  "last_name":"McDragbottom",
+  "email":"fern@buckle.edu",
+  "phone":"123-546-7890",
+  "orders":{
+    "count":1,
+    "next":null,
+    "previous":null,
+    "results":[
+       {
+          ...see /order/ for an example...
+       }
+    ]
+}
+```
+
+```shell
+curl -X GET -H "Authorization: Token your-token-here" https://getbellhops.com/api/v1/customers/<pk>/
+```
+
+```python
+from django.core.urlresolvers import reverse
+from rest_framework.test import APIClient
+user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+c = APIClient()
+c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+response = c.get(reverse('api-user-detail', args=[<pk>]))
+```
+
+
+```objective_c
+// NOTE jk this is actually swift, but there's no Swift support in Slate yet, so we alias it as objective_c
+
+// Coming soon!
+```
+
+```java
+// Coming soon!
+```
+
+This endpoint returns the specified customer, regardless of the user.
 
 # Bellhop Profile Endpoints
 
