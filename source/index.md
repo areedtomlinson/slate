@@ -717,6 +717,7 @@ You must be a superuser to GET from this endpoint.
 ## Get PhotoProfile Of Currently Authenticated User
 
 ```http
+HTTP/1.1 200 OK
 {
    "count":1,
    "next":null,
@@ -766,6 +767,7 @@ If the authenticated user is a superuser, this endpoint returns all PhotoProfile
 ## Get A Specific PhotoProfile
 
 ```http
+HTTP/1.1 200 OK
 {
    "count":1,
    "next":null,
@@ -848,7 +850,6 @@ class func postPhotoProfile(
           ...
         }
     {
-
 ```
 
 ```java
@@ -857,6 +858,47 @@ Coming Soon!
 
 Posting a photoProfile with an image file either creates a photoProfile for this user, or updates this user's photoProfile to use the uploaded photo.
 
+# Onboarding
+## Get Interview Video
+
+```http
+HTTP/1.1 200 OK
+{
+   "created_at":"2014-02-27T02:20:20.181Z",
+   "cameratag_uuid":"v-59f4dfd0-8183-0131-32ab-22000a499ea4",
+   "video_url":null,
+   "cameratag_status":null,
+   "bellhop":5598
+}
+```
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/interviewvideo/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-interviewvideo-list'))
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+When Bellhops sign up, they make an interview video.
+This endpoint gets the interview video the requesting user has submitted.
+If no interview video has been recorded, this returns 400.
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/interviewvideo`
 
 # Kittens
 
