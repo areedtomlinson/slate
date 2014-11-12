@@ -18,32 +18,52 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Bellhops API! Here you can sign up as a Bellhop or Customer, book and claim jobs, and more.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+For the time being, we have language bindings in HTTP and Shell (see right sidebar). More to come!
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
+```http
+POST /api/v1/auth/ HTTP/1.1
+Host: campusbellhops.com
+Content-Type: application/json
+Authorization: Basic ...
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
 
-```python
-import 'kittn'
+HTTP/1.0 200 OK
+Content-Type: Application/json
+{
+    "pk": 1,
+    "email": "your_email",
+    "is_superuser": false,
+    "first_name": "Fernbuckle",
+    "last_name": "McDragbottom",
+    "profiles": [
+        {
+            "profile_type": "token",
+            "key": "your-auth-token",
+            "created": "2014-09-08T18:31:13.615Z"
+        },
+        {
+            "href": "http://campusbellhops.com/api/v1/bellhopprofiles/1/",
+            "profile_type": "bellhop"
+        },
+        {
+            "href": "http://localhost:4567/api/v1/photoprofiles/1/",
+            "profile_type": "photo",
+            "image": "https://bellhops-staging.s3.amazonaws.com/profiles/your-photo-profile-url.png"
+        }
+    ]
+}
 
-api = Kittn.authorize('meowmeowmeow')
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+# Your username will be the same as your email address.
+curl  -X POST -u "your_username:your_password" campusbellhops.com/api/v1/auth/
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
