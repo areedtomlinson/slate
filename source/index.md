@@ -262,6 +262,7 @@ pk | None | The primary key of the bellhop you wish to GET
       {  }
    ]
 }
+```
 
 ```shell
 curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/bellhopprofiles/
