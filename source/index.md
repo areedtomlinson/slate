@@ -65,7 +65,7 @@ Content-Type: Application/json
 
 ```shell
 # Your username will be the same as your email address.
-curl  -X POST -u "your_username:your_password" getbellhops.com/api/v1/auth/
+curl -X POST -u "your_username:your_password" getbellhops.com/api/v1/auth/
 ```
 
 ```python
@@ -113,6 +113,69 @@ Kittn expects for the API key to be included in all API requests to the server i
 <aside class="notice">
 You must replace `meowmeowmeow` with your personal API key.
 </aside>
+
+
+# Bellhop Profile Endpoints
+
+## Get A Bellhop Profile
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/bellhopprofiles/19100/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from django.test import Client
+    c = Client()
+    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
+    response = c.get(reverse('api-bellhopprofile-list'), {'pk':'19100',}, **auth_headers)
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+This endpoint retrieves a single bellhop profile.
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/bellhopprofiles/<pk>`
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pk | None | The primary key of the bellhop you wish to GET
+
+## Get All Bellhop Profiles
+
+```shell
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/bellhopprofiles/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from django.test import Client
+    c = Client()
+    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
+    response = c.get(reverse('api-bellhopprofile-list'), **auth_headers)
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+This endpoint retrieves all bellhop profiles.
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/bellhopprofiles/`
+
+
 
 # Kittens
 
