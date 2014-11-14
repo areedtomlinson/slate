@@ -903,15 +903,33 @@ If no interview video has been recorded, this returns 400.
 ## Post Interview Video
 
 ```http
-
+HTTP/1.1 200 OK
+{
+    "created_at": "2014-11-14T14:24:16.347Z",
+    "cameratag_uuid": "xxxx",
+    "video_url": "http://www.xxxx.com/",
+    "cameratag_status": "ready",
+    "bellhop": xxxxx}
+}
 ```
 
 ```shell
-
+curl -X POST -i -H "Authorization: Token YOURTOKENHERE" -d "cameratag_uuid=xxxx&video_url=http://www.xxxx.com/&cameratag_status=ready" staging.getbellhops.com/api/v1/interviewVideo/
 ```
 
 ```python
-
+    from django.core.urlresolvers import reverse
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.post(reverse('api-interviewvideo-list'),
+                        {
+                            'cameratag_uuid':'xxxx',
+                            'video_url':'xxxx',
+                            'cameratag_status':'ready'
+                        }
+                      )
 ```
 
 ```objective_c
