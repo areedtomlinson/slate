@@ -940,11 +940,88 @@ curl -X POST -i -H "Authorization: Token YOURTOKENHERE" -d "cameratag_uuid=xxxx&
 Coming Soon!
 ```
 
-When Bellhops sign up, they make an interview video.
+When Bellhops sign up, they make an interview video and it gets uploaded to cameratag.
 This endpoint allows the user to POST the video record to the server.
 
 ### HTTP Request
 `POST http://staging.getbellhops.com/api/v1/interviewvideo`
+
+
+## Get All Incomplete Lessons
+
+```http
+HTTP/1.1 200 OK
+{
+   "count":12,
+   "next":null,
+   "previous":null,
+   "results":[
+      {
+         "pk":1,
+         "text":"Crush the Job",
+         "video_url":"player.vimeo.com/video/64068310",
+         "html":"<h2>Crush the Job</h2>\r\n<iframe id=\"question-player\" src=\"//player.vimeo.com/video/64068310?api=1&player_id=question-player\" width=\"100%\" height=\"500\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
+         "questions":[
+            {
+               "pk":1,
+               "text":"Which of the following is a good way to WOW the customer?",
+               "choices":[
+                  {
+                     "pk":1,
+                     "text":"A. Stay up late the night before a job and act tired and grumpy.",
+                     "is_correct":false
+                  },
+                  {...},
+                  {...}
+               ]
+            },
+            {
+               "pk":2,
+               "text":"How should you treat the people who you're moving in?",
+               "choices":[
+                  {
+                     "pk":4,
+                     "text":"Like they're my parents",
+                     "is_correct":true
+                  },
+                  {...}
+               ]
+            }
+         ]
+      },
+      {...},
+      {...},
+   ]
+}
+```
+
+```shell
+curl -i -H "Authorization: Token YOURTOKENHERE" staging.getbellhops.com/api/v1/lessons/
+
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-lessons-list'))
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+Before a bellhop can claim jobs, they must undergo training.
+This endpoint returns all unfinished lessons.
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/lessons/`
 
 # Kittens
 
