@@ -861,6 +861,34 @@ If no interview video has been recorded, this returns 400.
 ### HTTP Request
 `GET http://staging.getbellhops.com/api/v1/interviewvideo`
 
+## Post Interview Video
+
+```http
+
+```
+
+```shell
+
+```
+
+```python
+
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+When Bellhops sign up, they make an interview video.
+This endpoint allows the user to POST the video record to the server.
+
+### HTTP Request
+`POST http://staging.getbellhops.com/api/v1/interviewvideo`
+
 # Kittens
 
 ## Get All Kittens
