@@ -726,7 +726,7 @@ HTTP/1.1 200 OK
       {
          "href":"http://staging.getbellhops.com/api/v1/photoprofiles/",
          "profile_type":"photo",
-         "image":"https://bellhops-staging.s3.amazonaws.com/hophr/img/barnabas-square.png"
+         "image":"your-image-url-will-go-here"
       }
    ]
 }
@@ -739,10 +739,11 @@ curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/p
 
 ```python
     from django.core.urlresolvers import reverse
-    from django.test import Client
-    c = Client()
-    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
-    response = c.get(reverse('api-photoprofile-list'), **auth_headers)
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-photoprofile-list'))
 ```
 
 ```objective_c
@@ -773,9 +774,9 @@ HTTP/1.1 200 OK
    "previous":null,
    "results":[
       {
-         "href":"http://staging.getbellhops.com/api/v1/photoprofiles/17962/",
+         "href":"http://staging.getbellhops.com/api/v1/photoprofiles/<pk>/",
          "profile_type":"photo",
-         "image":"https://bellhops-staging.s3.amazonaws.com/hophr/img/barnabas-square.png"
+         "image":"your-image-url-will-go-here"
       }
    ]
 }
@@ -783,15 +784,16 @@ HTTP/1.1 200 OK
 ```
 
 ```shell
-curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/photoprofiles/17962
+curl -H 'Authorization: Token YOURTOKENHERE' -i staging.getbellhops.com/api/v1/photoprofiles/<pk>/
 ```
 
 ```python
     from django.core.urlresolvers import reverse
-    from django.test import Client
-    c = Client()
-    auth_headers = {'HTTP_AUTHORIZATION': 'Token YOURTOKENHERE'}
-    response = c.get(reverse('api-photoprofile-list'),{'pk':'17962'}, **auth_headers)
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-photoprofile-list', args=[<pk>]))
 ```
 
 ```objective_c
@@ -818,6 +820,43 @@ Parameter | Default | Description
 pk | None | The primary key of the photo profile you wish to GET
 
 
+## Post a PhotoProfile
+
+```http
+HTTP/1.1 100 Continue
+HTTP/1.0 200 OK
+{
+    "href": "http://localhost:4567/api/v1/photoprofiles/<pk>/",
+    "profile_type": "photo",
+    "image": "your-image-url-will-go-here"}
+
+```
+
+```shell
+curl -X POST -i -H "Authorization: Token your-token-here" -F "image=@test_file_name.png" localhost:4567/api/v1/photoprofiles/
+```
+
+```python
+# Nonesuch right now
+```
+
+```objective_c
+class func postPhotoProfile(
+        image: UIImage!,
+        success: { operation, response in
+          ...
+        }
+        failure: { operation, error in 
+          ...
+        }
+    {
+```
+
+```java
+Coming Soon!
+```
+
+Posting a photoProfile with an image file either creates a photoProfile for this user, or updates this user's photoProfile to use the uploaded photo.
 
 # Onboarding
 ## Get Interview Video
