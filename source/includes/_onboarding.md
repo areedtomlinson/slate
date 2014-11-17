@@ -625,3 +625,68 @@ For security reasons, this endpoint returns a 403 for all but superusers.
 
 ### HTTP Request
 `GET http://staging.getbellhops.com/api/v1/schools/`
+
+## Get Training Video URL
+HTTP/1.0 200 OK
+```http
+{
+    "url": "https://s3.amazonaws.com/bellhops/training/cam_example_interview.mp4"
+}
+```
+
+```shell
+curl -H 'Authorization: Token YOURKEYHERE' -i staging.getbellhops.com/api/v1/trainingvideourl/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-trainingvideourl'))
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+We currently have a video that is Cam showing potential bellhops how to record an interview video. 
+This gets the URL to where that is hosted.
+
+## Send Verification Text
+HTTP/1.0 201 
+```http
+{
+    "url": "https://s3.amazonaws.com/bellhops/training/cam_example_interview.mp4"
+}
+```
+
+```shell
+curl -X POST -H 'Authorization: Token YOURKEYHERE' -i staging.getbellhops.com/api/v1/verifyphone/
+```
+
+```python
+    from django.core.urlresolvers import reverse
+    from rest_framework.test import APIClient
+    user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
+    c = APIClient()
+    c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
+    response = c.get(reverse('api-verify-phone-list'))
+```
+
+```objective_c
+
+```
+
+```java
+Coming Soon!
+```
+
+This endpoint triggers a phone verification text to be sent to the requesting bellhop. 
+
+### HTTP Request
+`GET http://staging.getbellhops.com/api/v1/trainingvideourl/`
