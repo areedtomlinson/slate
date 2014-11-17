@@ -14,6 +14,10 @@ toc_footers:
 
 includes:
   - authentication
+  - users
+  - customers
+  - bellhop_profiles
+  - onboarding
   - errors
 
 
