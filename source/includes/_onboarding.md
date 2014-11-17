@@ -351,11 +351,15 @@ Parameter | Default | Description
 pk | None | The primary key of the user answer you wish to GET
 
 ### HTTP Request
-`GET http://staging.getbellhops.com/api/v1/useranswers/PK`
+`POST http://staging.getbellhops.com/api/v1/setsmspreferences/`
 
 ## Set SMS Preferences
-
+HTTP/1.1 201 CREATED
 ```http
+
+{
+    "message": "SMS Notification Preferences Set"
+}
 
 ```
 
@@ -369,7 +373,7 @@ curl -X POST -i -H "Authorization: Token YOURTOKENHERE" -d "notify=True" staging
     user = User.objects.create_user(username='test@user.com', email='test@user.com', password='password')
     c = APIClient()
     c.credentials(HTTP_AUTHORIZATION='Token ' + user.auth_token.key)
-    response = c.post(reverse('api-useranswer-detail'), {'fulfilled':'True'})
+    response = c.post(reverse('api-setsmspreferences-detail'), {'fulfilled':'True'})
 ```
 
 ```objective_c
