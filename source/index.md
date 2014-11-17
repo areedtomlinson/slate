@@ -18,6 +18,8 @@ includes:
   - customers
   - bellhop_profiles
   - onboarding
+  - autocompletes
+  - job_management
   - errors
 
 
