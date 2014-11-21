@@ -689,4 +689,4 @@ Coming Soon!
 This endpoint triggers a phone verification text to be sent to the requesting bellhop. 
 
 ### HTTP Request
-`GET http://staging.getbellhops.com/api/v1/trainingvideourl/`
+`GET http://staging.getbellhops.com/api/v1/verifyphone/`
