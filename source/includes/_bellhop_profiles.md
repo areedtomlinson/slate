@@ -176,7 +176,7 @@ This endpoint retrieves all bellhop profiles.
 ### HTTP Request
 `GET http://staging.getbellhops.com/api/v1/bellhopprofiles/`
 
-## Get All Bellhop Profiles Currently Being Reviewed
+## Get All Applicants 
 
 ```http
 HTTP/1.1 200 OK
@@ -214,8 +214,10 @@ Coming Soon!
 ```
 
 This endpoint retrieves all bellhop profiles that are awaiting approval.
+Paginates 20 at a time.
 <aside class="notice">
 You must be a superuser to GET from this endpoint.
+Non superusers get an empty list.
 </aside>
 
 ### HTTP Request
