@@ -20,6 +20,7 @@ includes:
   - onboarding
   - autocompletes
   - job_management
+  - money
   - errors
 
 
